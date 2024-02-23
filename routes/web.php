@@ -13,6 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+// routes/web.php
+
+use BeyondCode\LaravelWebSockets\Facades\WebSockets;
+
+Route::get('/video-call', function () {
+    return view('video-call');
 });
+
+WebSockets::routes();
+
+// routes/web.php
+
+Route::post('/webrtc/offer', 'WebRtcController@offer');
+Route::post('/webrtc/answer', 'WebRtcController@answer');
+Route::post('/webrtc/ice-candidate', 'WebRtcController@iceCandidate');

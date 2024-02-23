@@ -9,8 +9,9 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class WebRtcSignal
+class WebRtcSignal implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -19,7 +20,9 @@ class WebRtcSignal
      *
      * @return void
      */
-    public function __construct()
+    public $signal;
+
+    public function __construct($signal)
     {
         //
     }
@@ -32,5 +35,6 @@ class WebRtcSignal
     public function broadcastOn()
     {
         return new PrivateChannel('channel-name');
+        return new Channel('webrtc-channel');
     }
 }
